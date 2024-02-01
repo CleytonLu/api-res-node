@@ -7,13 +7,6 @@ app.use(express.json());
 
 // mock
 
-const selecoes = [
-  { id: 1, selecao: "Brasil", grupo: "G" },
-  { id: 2, selecao: "Suíça", grupo: "G" },
-  { id: 3, selecao: "Sérvia", grupo: "G" },
-  { id: 4, selecao: "Camarões", grupo: "G" },
-];
-
 const buscarSelecaoPorId = (id) => {
   return selecoes.filter((selecao) => selecao.id == id);
 };
