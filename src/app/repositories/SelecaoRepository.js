@@ -6,7 +6,7 @@
 */
 
 // importando a conexão que vem do arquivo cconexao que fica na pasta infra
-import conexao from "../database/conexao.js";
+import { consult } from "../database/conexao.js";
 
 class SelecaoRepository {
   // CRUD
@@ -14,70 +14,35 @@ class SelecaoRepository {
   create(selecao) {
     const sql = "INSERT INTO SELECOES SET ?;";
 
-    return new Promise((resolve, reject) => {
-      conexao.query(sql, selecao, (error, result) => {
-        if (error) return reject({ message: "Não encontrado" });
-
-        const row = JSON.parse(JSON.stringify(result));
-
-        return resolve(row);
-      });
-    });
+    return consult(sql, selecao, "Não foi possível criar!");
   }
 
   findAll() {
     const sql = "SELECT * FROM SELECOES;";
 
-    return new Promise((resolve, reject) => {
-      conexao.query(sql, (error, result) => {
-        if (error) return reject({ message: "Não encontrado" });
-        const rows = JSON.parse(JSON.stringify(result));
-
-        return resolve(rows);
-      });
-    });
+    return consult(sql, "Não foi possível encontrar!");
   }
 
   findById(id) {
     const sql = "SELECT * FROM SELECOES WHERE id=?;";
 
-    return new Promise((resolve, reject) => {
-      conexao.query(sql, id, (error, result) => {
-        if (error) return reject({ message: "Não foi encontrado" });
-
-        const row = JSON.parse(JSON.stringify(result));
-
-        return resolve(row);
-      });
-    });
+    return consult(sql, id, "Não foi possível encontrar!");
   }
 
   update(body, id) {
     const sql = "UPDATE SELECOES SET ? WHERE id =?;";
 
-    return new Promise((resolve, reject) => {
-      conexao.query(sql, [body, id], (error, result) => {
-        if (error) return reject({ message: "Não foi encontrado" });
-
-        const row = JSON.parse(JSON.parse(result));
-
-        return resolve(row);
-      });
-    });
+    return consult(
+      sql,
+      [body, id],
+      "Não foi possível encontrar para poder realizar a atualização!"
+    );
   }
 
   delete(id) {
     const sql = "DELETE FROM SELECOES WHERE id=?;";
 
-    return new Promise((resolve, reject) => {
-      conexao.query(sql, id, (error, result) => {
-        if (error) return reject({ message: "Não foi encontrado" });
-
-        const row = JSON.parse(JSON.stringify(result));
-
-        return resolve(row);
-      });
-    });
+    return consult(sql, id, "Não foi possível encontrar para deletar!");
   }
 }
 

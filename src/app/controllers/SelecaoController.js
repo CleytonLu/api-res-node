@@ -23,7 +23,7 @@ class SelecaoController {
   create(req, res) {
     const bodySelecao = req.body;
 
-    const row = SelecaoRepository(bodySelecao);
+    const row = SelecaoRepository.create(bodySelecao);
 
     res.json(row);
   }
